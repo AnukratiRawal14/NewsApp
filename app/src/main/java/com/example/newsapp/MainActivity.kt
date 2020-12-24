@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         MobileAds.initialize(this)
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544~3347511713"
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
         mInterstitialAd.adListener = object: AdListener(){
             override fun onAdClosed() {
@@ -46,11 +46,12 @@ class MainActivity : AppCompatActivity() {
         layoutManager.setPagerFlingVelocity(3000)
         layoutManager.setItemChangedListener(object:StackLayoutManager.ItemChangedListener{
             override fun onItemChanged(position: Int) {
-                container.setBackgroundColor(Color.parseColor(Colors.getColor()))
+                container.setBackgroundColor(Color.parseColor("#605052"))
                 Log.d(TAG, "First Visible Item - ${layoutManager.getFirstVisibleItemPosition()}")
                 Log.d(TAG, "Total Count -${layoutManager.itemCount}")
 
                 if(totalResult > layoutManager.itemCount && layoutManager.getFirstVisibleItemPosition() >= layoutManager.itemCount - 5) {
+                    //next page data
                     pageNo++
                     getNews()
                 }
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getNews(){
+        Log.d(TAG,"Request sent for $pageNo")
         val news = NewsService.newsInstances.getHeadlines("in",pageNo)
         news.enqueue(object :retrofit2.Callback<News>{
             override fun onFailure(call: Call<News>, t: Throwable) {

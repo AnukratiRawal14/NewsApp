@@ -12,8 +12,8 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         val url = intent.getStringExtra("URL")
-        if (url!=null){
-            detailWebView.settings.javaScriptEnabled = true
+        if (url != null){
+            detailWebView.settings.javaScriptEnabled = true //if page contains js so it will load that part too
             detailWebView.settings.userAgentString = "Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3"
             detailWebView.webViewClient = object : WebViewClient(){
                 override fun onPageFinished(view: WebView?, url: String?) {
@@ -22,6 +22,7 @@ class DetailActivity : AppCompatActivity() {
                     detailWebView.visibility = View.VISIBLE
                 }
             }
+            detailWebView.loadUrl(url)
         }
     }
 }
